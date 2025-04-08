@@ -3,6 +3,6 @@
    public class Sinif{
         public int Id { get; set; }
         public string SinifAdi { get; set; } = string.Empty;
-        public ICollection<Ogrenci> Ogrenciler { get; set; }
+        public ICollection<Ogrenci>? Ogrenciler { get; set; }
    }
 }

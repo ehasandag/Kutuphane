@@ -29,7 +29,7 @@ namespace Kutuphane.Controllers
         {
             var siniflar = await _context.Siniflar.ToListAsync();
             ViewBag.SinifListesi = new SelectList(siniflar, "Id", "SinifAdi");
-            // Debug için 
+            // Debu falan filan
             Console.WriteLine($"Siniflar: {string.Join(", ", siniflar.Select(s => s.SinifAdi))}");  
             return View();
         }
@@ -38,15 +38,7 @@ namespace Kutuphane.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Ekle(Ogrenci ogrenci)
         {
-            if (!ModelState.IsValid)
-    {
-        // ModelState hatalarını yazdır
-        foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
-        {
-            Console.WriteLine($"Hata: {error.ErrorMessage}");
-        }
-    }
-
+       
             if (ModelState.IsValid)
             {
                 _context.Ogrenciler.Add(ogrenci);

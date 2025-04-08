@@ -18,7 +18,7 @@ public class SinifController : Controller
     // GET: Sinif
     public async Task<IActionResult> Index()
     {
-        var siniflar  = await _context.Siniflar.ToListAsync();
+        var siniflar  = await _context.Siniflar.OrderBy(s => s.SinifAdi).ToListAsync();
         return View(siniflar);
     }
 
@@ -73,7 +73,7 @@ public class SinifController : Controller
     }
 
     // GET: Sinif/Delete/5
-    public async Task<IActionResult> Delete(int? id)
+    public async Task<IActionResult> Sil(int? id)
     {
         if (id == null || id == 0)
         {
@@ -81,24 +81,18 @@ public class SinifController : Controller
         }
 
         var sinif = await _context.Siniflar.FindAsync(id);
-        if (sinif == null)
-        {
-            return NotFound();
-        }
-        return View(sinif);
-    }
-
-    // POST: Sinif/Delete/5
-    [HttpPost, ActionName("Delete")]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteConfirmed(int id)
-    {
-        var sinif = await _context.Siniflar.FindAsync(id);
         if (sinif != null)
         {
             _context.Siniflar.Remove(sinif);
             await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
-        return RedirectToAction(nameof(Index));
+        else
+        {
+            return NotFound();
+        }
+        
     }
+
+    
 }
